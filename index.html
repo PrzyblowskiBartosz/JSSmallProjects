@@ -1,0 +1,93 @@
+<div>
+    <canvas id="game" width='800' height="400"></canvas>
+    <p id="pointsPlayer1" style="color:#FFFFFF; font-size:20;"></p>
+    <p id="pointsPlayer2" style="color:#FFFFFF; font-size:20;"></p>
+</div>
+<script>
+    window.onload = function () {
+        canva = document.getElementById('game');
+        context = canva.getContext("2d");
+        document.addEventListener("keydown", keyPush);
+        pointsPlayer1 = document.getElementById('pointsPlayer1');
+        pointsPlayer2 = document.getElementById('pointsPlayer2');
+        setInterval(game, 1000 / 10);
+    }
+
+    gridSize = 20;
+    xBall = 20;
+    yBall = 10;
+    xVelocity = yVelocity = 1;
+
+    xPlayer1 = 1;
+    yPlayer1 = 8;
+
+    xPlayer2 = 38;
+    yPlayer2 = 8;
+
+    pointsP1 = 0;
+    pointsP2 = 0;
+
+    function game() {
+
+        xBall += xVelocity;
+        yBall += yVelocity;
+
+        yBall > gridSize - 2 ? yVelocity = -yVelocity : null;
+        yBall < 1 ? yVelocity = -yVelocity : null;
+
+        if (xBall > 39) {
+            xVelocity = -xVelocity;
+            pointsP2++;
+            restartBall();
+        }
+
+        if (xBall < 0) {
+            xVelocity = -xVelocity;
+            pointsP1++;
+            restartBall();
+        }
+        xBall == xPlayer2 && yBall >= yPlayer2 && yBall < yPlayer2 + 4 ? xVelocity = -xVelocity : null;
+        xBall == xPlayer1 && yBall >= yPlayer1 && yBall < yPlayer1 + 4 ? xVelocity = -xVelocity : null;
+
+        context.fillStyle = "#000000";
+        context.fillRect(0, 0, canva.width, canva.height);
+
+        context.fillStyle = "#FFFFFF";
+        context.fillRect(400, 0, 2, 400);
+
+        context.fillRect(xBall * gridSize, yBall * gridSize, gridSize - 2, gridSize - 2);
+
+        context.fillRect(xPlayer1 * gridSize, yPlayer1 * gridSize, gridSize - 2, 80);
+        context.fillRect(xPlayer2 * gridSize, yPlayer2 * gridSize, gridSize - 2, 80);
+
+        pointsPlayer1.textContent = pointsP1;
+        pointsPlayer2.textContent = pointsP2;
+
+    }
+
+    function restartBall() {
+        xBall = 20;
+        yBall = 10;
+    }
+
+    function keyPush() {
+        switch (event.keyCode) {
+            case 38:
+                if (yPlayer2 > 0)
+                    yPlayer2--;
+                break;
+            case 40:
+                if (yPlayer2 < 16)
+                    yPlayer2++;
+                break;
+            case 87:
+                if (yPlayer1 > 0)
+                    yPlayer1--;
+                break;
+            case 83:
+                if (yPlayer1 < 16)
+                    yPlayer1++;
+                break;
+        }
+    }
+</script>
