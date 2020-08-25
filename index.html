@@ -1,7 +1,7 @@
-<div>
+<div style="position: absolute; left: 10; width:800; height:400;">
     <canvas id="game" width='800' height="400"></canvas>
-    <p id="pointsPlayer1" style="color:#FFFFFF; font-size:20;"></p>
-    <p id="pointsPlayer2" style="color:#FFFFFF; font-size:20;"></p>
+    <span id="pointsPlayer1" style="color:#FFFFFF; font-size:40; position: absolute;top:10;right:20"></span>
+    <span id="pointsPlayer2" style="color:#FFFFFF; font-size:40; position: absolute;top:10;left:20"></span>
 </div>
 <script>
     window.onload = function () {
@@ -10,20 +10,17 @@
         document.addEventListener("keydown", keyPush);
         pointsPlayer1 = document.getElementById('pointsPlayer1');
         pointsPlayer2 = document.getElementById('pointsPlayer2');
-        setInterval(game, 1000 / 10);
+        setInterval(game, 1000 / 15);
     }
 
     gridSize = 20;
     xBall = 20;
     yBall = 10;
     xVelocity = yVelocity = 1;
-
     xPlayer1 = 1;
     yPlayer1 = 8;
-
     xPlayer2 = 38;
     yPlayer2 = 8;
-
     pointsP1 = 0;
     pointsP2 = 0;
 
@@ -36,13 +33,11 @@
         yBall < 1 ? yVelocity = -yVelocity : null;
 
         if (xBall > 39) {
-            xVelocity = -xVelocity;
             pointsP2++;
             restartBall();
         }
 
         if (xBall < 0) {
-            xVelocity = -xVelocity;
             pointsP1++;
             restartBall();
         }
@@ -62,12 +57,12 @@
 
         pointsPlayer1.textContent = pointsP1;
         pointsPlayer2.textContent = pointsP2;
-
     }
 
     function restartBall() {
         xBall = 20;
         yBall = 10;
+        yPlayer1 = yPlayer2 = 8;
     }
 
     function keyPush() {
