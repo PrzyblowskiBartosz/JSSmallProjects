@@ -1,0 +1,11 @@
+.tower {
+    width: 30%;
+    height: 600px;
+    background-color: cornflowerblue;
+    display: inline-block;
+    margin: 20px;
+    vertical-align:middle;
+}
+.hanoi {
+    width: 100%;
+}
